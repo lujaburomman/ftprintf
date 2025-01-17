@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putptr.c                                        :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: laburomm <laburomm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 12:51:37 by laburomm          #+#    #+#             */
-/*   Updated: 2024/09/24 19:29:21 by laburomm         ###   ########.fr       */
+/*   Created: 2024/09/24 17:58:16 by laburomm          #+#    #+#             */
+/*   Updated: 2024/09/24 19:21:22 by laburomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int	ft_putptr(unsigned long ptr)
-{
-	int	count;
-	int	upper;
+# include <stdarg.h>
+# include <unistd.h>
 
-	upper = 0;
-	count = 0;
-	if (!ptr)
-	{
-		write(1, "(nil)", 5);
-		return (5);
-	}
-	count += ft_putstr("0x");
-	if (ptr == 0)
-		count += ft_putchar('0');
-	else
-		count += ft_puthex1(ptr, upper);
-	return (count);
-}
+int	ft_sp_handle(char c, va_list argptr);
+int	ft_printf(const char *fixedstring, ...);
+int	ft_putchar(char c);
+int	ft_putstr(char *s);
+int	ft_putnbr(int n);
+int	ft_puthex(unsigned long n, int upper);
+int	ft_putptr(unsigned long ptr);
+int	ft_putunsigned(unsigned int n);
+
+#endif

@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex.c                                        :+:      :+:    :+:   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: laburomm <laburomm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 12:51:13 by laburomm          #+#    #+#             */
-/*   Updated: 2024/09/24 19:21:37 by laburomm         ###   ########.fr       */
+/*   Created: 2024/09/24 12:51:37 by laburomm          #+#    #+#             */
+/*   Updated: 2024/09/24 19:29:21 by laburomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_puthex1(unsigned long n, int upper)
+int	ft_putptr(unsigned long ptr)
 {
-	int		count;
-	char	*hex;
+	int	count;
+	int	upper;
 
-	if (!n)
-		return (ft_putchar('0'));
+	upper = 0;
 	count = 0;
-	if (upper)
-		hex = "0123456789ABCDEF";
-	else
-		hex = "0123456789abcdef";
-	if (n >= 16)
+	if (!ptr)
 	{
-		count += ft_puthex1(n / 16, upper);
+		write(1, "(nil)", 5);
+		return (5);
 	}
-	ft_putchar(hex[n % 16]);
-	count += 1;
+	count += ft_putstr("0x");
+	if (ptr == 0)
+		count += ft_putchar('0');
+	else
+		count += ft_puthex(ptr, upper);
 	return (count);
 }

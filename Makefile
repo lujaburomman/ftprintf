@@ -1,25 +1,46 @@
 #Variables
 NAME = libftprintf.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
-SRC = ft_printf.c ft_putchar.c \
-	ft_puthex.c ft_putnbr.c ft_putstr.c ft_putunsigned.c ft_putptr.c
+CFLAGS = -Wall -Wextra -Werror
+INCLUDES = -I includes
+SRC_DIR = src
+OBJ_DIR = obj
+SRC_FILES = \
+    $(SRC_DIR)/ft_printf.c \
+    $(SRC_DIR)/ft_putchar.c \
+    $(SRC_DIR)/ft_putstr.c \
+    $(SRC_DIR)/ft_putnbr.c \
+    $(SRC_DIR)/ft_puthex.c \
+    $(SRC_DIR)/ft_putptr.c \
+    $(SRC_DIR)/ft_putunsigned.c
 
-OBJ = $(SRC:.c=.o)
+OBJ_FILES   = $(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-RM = rm -f
-#AR = ar rcs
 #Rules
 all : $(NAME)
 
-$(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+$(NAME): $(OBJ_FILES)
+	@echo "Archiving object files into $(NAME)..."
+	@ar rcs $(NAME) $(OBJ_FILES)
+	@echo "$(NAME) created successfully!"
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@echo "Checking if $< exists..."
+	@test -f $< || (echo "Error: $< does not exist!" && exit 1)
+	@echo "Creating directory: $(dir $@)"
+	@mkdir -p $(dir $@)
+	@echo "Compiling $<..."
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean :
-	$(RM) $(OBJ)
+	@echo "Cleaning object files..."
+	@rm -rf $(OBJ_DIR)
+	@echo "Object files cleaned!"
 
 fclean : clean
-	$(RM) $(NAME)
+	@echo "Cleaning $(NAME)..."
+	@rm -f $(NAME)
+	@echo "$(NAME) cleaned!"
 
 re : fclean all
 

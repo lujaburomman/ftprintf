@@ -24,9 +24,9 @@ int	ft_sp_handle(char c, va_list argptr)
 	if (c == 's')
 		count += ft_putstr(va_arg(argptr, char *));
 	if (c == 'x')
-		count += ft_puthex1(va_arg(argptr, unsigned int), 0);
+		count += ft_puthex(va_arg(argptr, unsigned int), 0);
 	if (c == 'X')
-		count += ft_puthex1(va_arg(argptr, unsigned int), 1);
+		count += ft_puthex(va_arg(argptr, unsigned int), 1);
 	if (c == 'u')
 		count += ft_putunsigned(va_arg(argptr, unsigned int));
 	if (c == 'p')
